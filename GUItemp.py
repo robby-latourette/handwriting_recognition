@@ -48,20 +48,12 @@ def draw_handwriting(event):
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
 def classify_number():
+    '''
+    Runs Format Number and predicts using the already existing model
+    '''
     test_num = format_number()
-    print(test_num)
-    df = pd.read_csv('mnist_train.csv')
-    y = df['label']
-    X = df.drop('label', axis='columns')
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1, stratify=y)
-    forest = RandomForestClassifier(n_estimators=26, criterion='entropy', random_state=20)
-    forest.fit(X_train, y_train)
-    accuractPreds = forest.predict(X_test)
     prediction = forest.predict(test_num)
-    acc = accuracy_score(y_test, accuractPreds)
-    acc = round(acc*100)
     lbl_result.config(text=f"Result: {prediction}", background='red')
-    rfc_accuracy.config(text=f"Random Forest Accuracy = {acc}%", background=default_background_color)
 
 def format_number():
     newTest = transform.resize(test_sample, output_shape=(28, 28))
@@ -88,6 +80,11 @@ def format_number():
     df.columns = columnNames
     return df
 
+def getAccuracy():
+    accPreds = forest.predict(X_test)
+    acc = accuracy_score(y_test, accPreds)
+    acc = round(acc * 100)
+    return acc
 ################################################################################
 #                                 DRAW THE GUI                                 #
 ################################################################################
@@ -97,13 +94,22 @@ window = tk.Tk()
 window.geometry("350x450")
 window.wm_title('Handwriting Project')
 
+#Creating the model globaly so program runs faster and more effecient and also to get accuracy
+df = pd.read_csv('mnist_train.csv')
+y = df['label']
+X = df.drop('label', axis='columns')
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=6, test_size=0.169, stratify=y)
+forest = RandomForestClassifier(n_estimators=100, criterion='entropy', random_state=20)
+forest.fit(X_train, y_train)
+acc = getAccuracy()
+
 # Create all the buttons and stuff. Each column will be as wide as it's
 # widest widget. So we make some artifically wide widgets.
 lbl_title = tk.Label(text=f'Handwritten Digit Classifier')
 lbl_result = tk.Label(text=f'')
 
 # This drawing canvas will be very important for our ML model
-rfc_accuracy = tk.Label(text= f"")
+rfc_accuracy = tk.Label(text=f"Random Forest Accuracy = {acc}%")
 cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
