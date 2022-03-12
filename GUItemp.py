@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from skimage import io
 from skimage import transform
 from skimage.color import rgb2gray
+from sklearn.ensemble import RandomForestClassifier
 
 # Websites with info about Tkinter:
 #  https://tkdocs.com/tutorial/widgets.html
@@ -49,8 +50,13 @@ def draw_handwriting(event):
 def classify_number():
     test_num = format_number()
     df = pd.read_csv('mnist_train.csv')
-    X = df[1:]
+    df = df.astype(np.float32) / 255
+    df = df.round()
     y = df['label']
+    X = df.drop('label', axis='columns')
+    rfor = RandomForestClassifier(n_estimators=60000, criterion='entropy', random_state=20)
+    rfor.fit(X, y)
+    rfor_y_pred = rfor.predict(test_num)
 
 
 def format_number():
