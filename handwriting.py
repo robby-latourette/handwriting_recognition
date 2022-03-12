@@ -144,8 +144,6 @@ forest = RandomForestClassifier(n_estimators=26, criterion='entropy', random_sta
 forest.fit(X_train, y_train)
 acc = getAccuracy()
 
-window.resizable(False, False)
-window.mainloop()
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
@@ -177,4 +175,7 @@ cvsCanvas.bind('<B1-Motion>', draw_handwriting)
 cvsCanvas.bind('<Button-1>', draw_handwriting)
 
 default_background_color = titleLabl.cget('background')
+
+window.resizable(False, False)
+window.mainloop()
 
