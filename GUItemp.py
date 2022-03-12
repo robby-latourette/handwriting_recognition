@@ -30,6 +30,7 @@ def clear_drawing():
     ''' Clears the drawing canvas and internal array. '''
 
     cvs_drawspace.delete('all')  # drawing canvas
+    lbl_result.config(text = "")
     test_sample[:] = black_pixel # internal representation of drawing
 
 def draw_handwriting(event):
@@ -42,6 +43,9 @@ def draw_handwriting(event):
     cvs_drawspace.create_oval(x - r, y - r, x + r+1, y + r+1, fill='black')
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
+def classify_number():
+    '''Classifies the user drawn number'''
+    lbl_result.config(text = "IT WORKS!!!!!!!!!!!!!!!")
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
@@ -50,24 +54,27 @@ def draw_handwriting(event):
 # Create a GUI window with a certain size and title
 window = tk.Tk()
 window.geometry("900x700")
-window.wm_title('CSC432 Demo')
+window.wm_title('Handwriting Project')
 
 # Create all the buttons and stuff. Each column will be as wide as it's
 # widest widget. So we make some artifically wide widgets.
 lbl_title = tk.Label(text=f'Handwritten Digit Classifier')
-
+lbl_result = tk.Label(text=f'')
 
 # This drawing canvas will be very important for our ML model
 rfc_accuracy = tk.Label(text= "Random Forest Accuracy = asl;dk h;lahbv;las") #fill in later
 cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
+btn_classify = tk.Button(window, text='Classify Number', command=classify_number)
 btn_clear = tk.Button(window, text='Reset Everything', command=clear_drawing)
 
 # The grid layout makes sense but is a bit tedious
 lbl_title.grid(row=0, column=0, columnspan=5, pady=5, padx=25)
 
-rfc_accuracy.grid(row=4, column=2, pady=5)
-cvs_drawspace.grid(row=5, column=2, pady=5)
+rfc_accuracy.grid(row=2, column=2, pady=5)
+cvs_drawspace.grid(row=3, column=2, pady=5)
+btn_classify.grid(row=4, column=2, pady=5)
+lbl_result.grid(row=5, column=2, pady=5)
 btn_clear.grid(row=6, column=2, pady=5)
 
 #lbl_image.grid(row=7, column=0, columnspan=5, pady=5)
