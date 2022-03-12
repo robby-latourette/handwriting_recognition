@@ -77,12 +77,18 @@ def format_number():
         for y in x:
             temp.append(y)
 
+    columnNames = []
+    for x in range(784):
+        columnNames.append("pixel" + str(x))
+
+
     df = pd.DataFrame(temp)
     cols = [1,2]
     df = df.drop(df.columns[cols], axis=1)
     df = df.swapaxes("index", "columns")
     df = df.astype(np.float32) / 255
     df = df.round()
+    df.columns = columnNames
     return df
     
 
