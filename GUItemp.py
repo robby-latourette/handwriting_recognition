@@ -44,6 +44,8 @@ def draw_handwriting(event):
     cvs_drawspace.create_oval(x - r, y - r, x + r+1, y + r+1, fill='black')
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
+def classifyNumber():
+
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
