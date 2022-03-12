@@ -1,5 +1,6 @@
 import tkinter as tk
 import numpy as np
+import pandas as pd
 from PIL import Image, ImageTk
 from skimage import io
 from skimage import transform
@@ -57,12 +58,23 @@ def format_number():
     for x in newTest:
         for y in range(len(x)):
             x[y] = x[y] * 255
-    
+
     newTest = newTest.astype(int)
-    print(newTest)
-    #temp = test_sample.resize((28, 28))
-    #print(temp)
-    #print(len(temp))
+    temp = []
+
+    for x in newTest:
+        for y in x:
+            temp.append(y)
+
+    df = pd.DataFrame(temp)
+    cols = [1,2]
+    df = df.drop(df.columns[cols], axis=1)              
+    df = df.swapaxes("index", "columns")
+    
+    print(df)
+    print(len(df))
+    
+
 
 
 ################################################################################
