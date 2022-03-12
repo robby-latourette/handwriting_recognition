@@ -9,11 +9,6 @@ from skimage import transform
 from skimage.color import rgb2gray
 from sklearn.ensemble import RandomForestClassifier
 
-# Websites with info about Tkinter:
-#  https://tkdocs.com/tutorial/widgets.html
-#  https://tkdocs.com/tutorial/grid.html
-#  https://www.askpython.com/python-modules/tkinter/python-tkinter-grid-example
-
 ################################################################################
 #                         INITIALIZE DRAWING CONSTANTS                         #
 ################################################################################
@@ -55,7 +50,14 @@ def classify_number():
     prediction = forest.predict(test_num)
     lbl_result.config(text=f"Result: {prediction}", background='red')
 
+################################################################################
+#                                 Helper Funcs                                 #
+################################################################################
+
 def format_number():
+    '''
+    Robby comment this
+    '''
     newTest = transform.resize(test_sample, output_shape=(28, 28))
     
     for x in newTest:
@@ -81,10 +83,14 @@ def format_number():
     return df
 
 def getAccuracy():
+    '''
+    Uses the pre-established RFC model to get an accuracy score based off of the test data which was also previously split.
+    '''
     accPreds = forest.predict(X_test)
     acc = accuracy_score(y_test, accPreds)
     acc = round(acc * 100)
     return acc
+
 ################################################################################
 #                                 DRAW THE GUI                                 #
 ################################################################################
@@ -94,7 +100,7 @@ window = tk.Tk()
 window.geometry("350x450")
 window.wm_title('Handwriting Project')
 
-#Creating the model globaly so program runs faster and more effecient and also to get accuracy
+#Creating the RFC model globally so program runs faster and more efficient and also to get accuracy without needing to press the button
 df = pd.read_csv('mnist_train.csv')
 y = df['label']
 X = df.drop('label', axis='columns')
@@ -103,8 +109,7 @@ forest = RandomForestClassifier(n_estimators=100, criterion='entropy', random_st
 forest.fit(X_train, y_train)
 acc = getAccuracy()
 
-# Create all the buttons and stuff. Each column will be as wide as it's
-# widest widget. So we make some artifically wide widgets.
+# Create all the buttons and stuff. Each column will be as wide as it's widest widget. So we make some artifically wide widgets.
 lbl_title = tk.Label(text=f'Handwritten Digit Classifier')
 lbl_result = tk.Label(text=f'')
 
@@ -112,10 +117,9 @@ lbl_result = tk.Label(text=f'')
 rfc_accuracy = tk.Label(text=f"Random Forest Accuracy = {acc}%")
 cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#IMPortant
+
+#The Classify button
 btn_classify = tk.Button(window, text='Classify Number', command=classify_number)
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 btn_clear = tk.Button(window, text='Reset Everything', command=clear_drawing)
 
 # The grid layout makes sense but is a bit tedious
