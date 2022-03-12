@@ -1,5 +1,6 @@
 import tkinter as tk
 import numpy as np
+from handwriting import classifyNumber
 from PIL import Image, ImageTk
 
 
@@ -43,10 +44,6 @@ def draw_handwriting(event):
     cvs_drawspace.create_oval(x - r, y - r, x + r+1, y + r+1, fill='black')
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
-#Runs RFC
-def classify_number():
-    '''Classifies the user drawn number'''
-    lbl_result.config(text = "IT WORKS!!!!!!!!!!!!!!!")
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
@@ -68,7 +65,7 @@ cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #IMPortant
-btn_classify = tk.Button(window, text='Classify Number', command=classify_number)
+btn_classify = tk.Button(window, text='Classify Number', command=classifyNumber)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 btn_clear = tk.Button(window, text='Reset Everything', command=clear_drawing)
 
