@@ -154,7 +154,7 @@ titleLabl = tk.Label(text=f'Handwritten Digit Classifier')
 predictLbl = tk.Label(text=f'')
 
 # This drawing canvas will be very important for our ML model
-AccLbl = tk.Label(text=f"Random Forest Accuracy = {acc}%")
+accLib = tk.Label(text=f"Random Forest Accuracy = {acc}%")
 cvsCanvas = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                       highlightthickness=1, highlightbackground='steelblue')
 
@@ -165,7 +165,7 @@ clsBttn = tk.Button(window, text='Reset Everything', command=clear_drawing)
 # The grid layout makes sense but is a bit tedious
 titleLabl.grid(row=0, column=0, columnspan=5, pady=5, padx=25)
 
-AccLbl.grid(row=2, column=2, pady=5)
+accLib.grid(row=2, column=2, pady=5)
 cvsCanvas.grid(row=3, column=2, pady=5)
 predBttn.grid(row=4, column=2, pady=5)
 predictLbl.grid(row=5, column=2, pady=5)
