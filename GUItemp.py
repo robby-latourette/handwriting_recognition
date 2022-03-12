@@ -65,7 +65,10 @@ lbl_result = tk.Label(text=f'')
 rfc_accuracy = tk.Label(text= "Random Forest Accuracy = asl;dk h;lahbv;las") #fill in later
 cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#IMPortant
 btn_classify = tk.Button(window, text='Classify Number', command=classify_number)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 btn_clear = tk.Button(window, text='Reset Everything', command=clear_drawing)
 
 # The grid layout makes sense but is a bit tedious
