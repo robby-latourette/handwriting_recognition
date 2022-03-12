@@ -1,5 +1,6 @@
 import tkinter as tk
 import numpy as np
+import pandas as pd
 from PIL import Image, ImageTk
 from skimage import io
 from skimage import transform
@@ -47,6 +48,10 @@ def draw_handwriting(event):
 
 def classify_number():
     test_num = format_number()
+    df = pd.read_csv('mnist_train.csv')
+    X = df[1:]
+    y = df['label']
+
 
 def format_number():
     print(test_sample)
