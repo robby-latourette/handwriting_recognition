@@ -49,12 +49,13 @@ def draw_handwriting(event):
 
 def classify_number():
     test_num = format_number()
+    print(test_num)
     df = pd.read_csv('mnist_train.csv')
     df = df.astype(np.float32) / 255
     df = df.round()
     y = df['label']
     X = df.drop('label', axis='columns')
-    rfor = RandomForestClassifier(n_estimators=60000, criterion='entropy', random_state=20)
+    rfor = RandomForestClassifier(n_estimators=600, criterion='entropy', random_state=20)
     rfor.fit(X, y)
     rfor_y_pred = rfor.predict(test_num)
 
@@ -78,11 +79,11 @@ def format_number():
 
     df = pd.DataFrame(temp)
     cols = [1,2]
-    df = df.drop(df.columns[cols], axis=1)              
+    df = df.drop(df.columns[cols], axis=1)
     df = df.swapaxes("index", "columns")
-    
-    print(df)
-    print(len(df))
+    df = df.astype(np.float32) / 255
+    df = df.round()
+    return df
     
 
 
