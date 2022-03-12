@@ -43,6 +43,7 @@ def draw_handwriting(event):
     cvs_drawspace.create_oval(x - r, y - r, x + r+1, y + r+1, fill='black')
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
+#Runs RFC
 def classify_number():
     '''Classifies the user drawn number'''
     lbl_result.config(text = "IT WORKS!!!!!!!!!!!!!!!")
@@ -53,7 +54,7 @@ def classify_number():
 
 # Create a GUI window with a certain size and title
 window = tk.Tk()
-window.geometry("900x700")
+window.geometry("350x450")
 window.wm_title('Handwriting Project')
 
 # Create all the buttons and stuff. Each column will be as wide as it's
@@ -77,7 +78,6 @@ btn_classify.grid(row=4, column=2, pady=5)
 lbl_result.grid(row=5, column=2, pady=5)
 btn_clear.grid(row=6, column=2, pady=5)
 
-#lbl_image.grid(row=7, column=0, columnspan=5, pady=5)
 
 cvs_drawspace.bind('<B1-Motion>', draw_handwriting)
 cvs_drawspace.bind('<Button-1>', draw_handwriting)
