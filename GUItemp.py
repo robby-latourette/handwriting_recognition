@@ -1,6 +1,8 @@
 import tkinter as tk
 import numpy as np
 import pandas as pd
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
 from PIL import Image, ImageTk
 from skimage import io
 from skimage import transform
@@ -23,7 +25,6 @@ from sklearn.ensemble import RandomForestClassifier
 black_pixel = np.full((1, 3), 0, dtype=np.uint8)
 white_pixel = np.full((1, 3), 255, dtype=np.uint8)
 test_sample = np.full((140, 140, 3), black_pixel, dtype=np.uint8)
-
 
 ################################################################################
 #                           BUTTON HANDLERS FOR GUI                            #
@@ -52,11 +53,15 @@ def classify_number():
     df = pd.read_csv('mnist_train.csv')
     y = df['label']
     X = df.drop('label', axis='columns')
-    rfor = RandomForestClassifier(n_estimators=26, criterion='entropy', random_state=20)
-    rfor.fit(X, y)
-    rfor_y_pred = rfor.predict(test_num)
-    print(rfor_y_pred)
-
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1, stratify=y)
+    forest = RandomForestClassifier(n_estimators=26, criterion='entropy', random_state=20)
+    forest.fit(X_train, y_train)
+    accuractPreds = forest.predict(X_test)
+    prediction = forest.predict(test_num)
+    acc = accuracy_score(y_test, accuractPreds)
+    acc = round(acc*100)
+    lbl_result.config(text=f"Result: {prediction}", background='red')
+    rfc_accuracy.config(text=f"Random Forest Accuracy = {acc}%", background=default_background_color)
 
 def format_number():
     newTest = transform.resize(test_sample, output_shape=(28, 28))
@@ -98,7 +103,7 @@ lbl_title = tk.Label(text=f'Handwritten Digit Classifier')
 lbl_result = tk.Label(text=f'')
 
 # This drawing canvas will be very important for our ML model
-rfc_accuracy = tk.Label(text= "Random Forest Accuracy = asl;dk h;lahbv;las") #fill in later
+rfc_accuracy = tk.Label(text= f"")
 cvs_drawspace = tk.Canvas(width=140, height=140, bg='white', cursor='tcross',
                           highlightthickness=1, highlightbackground='steelblue')
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
