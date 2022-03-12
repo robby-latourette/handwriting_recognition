@@ -1,7 +1,9 @@
 import tkinter as tk
 import numpy as np
 from PIL import Image, ImageTk
-
+from skimage import io
+from skimage import transform
+from skimage.color import rgb2gray
 
 # Websites with info about Tkinter:
 #  https://tkdocs.com/tutorial/widgets.html
@@ -43,10 +45,21 @@ def draw_handwriting(event):
     cvs_drawspace.create_oval(x - r, y - r, x + r+1, y + r+1, fill='black')
     test_sample[y-2:y+3,x-2:x+3] = white_pixel
 
-#Runs RFC
 def classify_number():
-    '''Classifies the user drawn number'''
-    lbl_result.config(text = "IT WORKS!!!!!!!!!!!!!!!")
+    test_num = format_number()
+
+def format_number():
+    print(test_sample)
+    print(len(test_sample))
+    
+    temp = transform.resize(test_sample, output_shape=(28, 28))
+    print(temp)
+    print(len(temp))
+
+    #temp = test_sample.resize((28, 28))
+    #print(temp)
+    #print(len(temp))
+
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
