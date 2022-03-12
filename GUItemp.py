@@ -55,9 +55,10 @@ def classify_number():
     df = df.round()
     y = df['label']
     X = df.drop('label', axis='columns')
-    rfor = RandomForestClassifier(n_estimators=600, criterion='entropy', random_state=20)
+    rfor = RandomForestClassifier(n_estimators=26, criterion='entropy', random_state=20)
     rfor.fit(X, y)
     rfor_y_pred = rfor.predict(test_num)
+    print(rfor_y_pred)
 
 
 def format_number():
