@@ -51,8 +51,6 @@ def classify_number():
     test_num = format_number()
     print(test_num)
     df = pd.read_csv('mnist_train.csv')
-    df = df.astype(np.float32) / 255
-    df = df.round()
     y = df['label']
     X = df.drop('label', axis='columns')
     rfor = RandomForestClassifier(n_estimators=26, criterion='entropy', random_state=20)
@@ -87,8 +85,6 @@ def format_number():
     cols = [1,2]
     df = df.drop(df.columns[cols], axis=1)
     df = df.swapaxes("index", "columns")
-    df = df.astype(np.float32) / 255
-    df = df.round()
     df.columns = columnNames
     return df
     
