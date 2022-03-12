@@ -49,13 +49,17 @@ def classify_number():
     test_num = format_number()
 
 def format_number():
-    print(test_sample)
-    print(len(test_sample))
+    #print(test_sample)
+    #print(len(test_sample))
     
-    temp = transform.resize(test_sample, output_shape=(28, 28))
-    print(temp)
-    print(len(temp))
-
+    newTest = transform.resize(test_sample, output_shape=(28, 28))
+    
+    for x in newTest:
+        for y in range(len(x)):
+            x[y] = x[y] * 255
+    
+    newTest = newTest.astype(int)
+    print(newTest)
     #temp = test_sample.resize((28, 28))
     #print(temp)
     #print(len(temp))
