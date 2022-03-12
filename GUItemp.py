@@ -12,7 +12,6 @@ from sklearn.ensemble import RandomForestClassifier
 #  https://tkdocs.com/tutorial/grid.html
 #  https://www.askpython.com/python-modules/tkinter/python-tkinter-grid-example
 
-
 ################################################################################
 #                         INITIALIZE DRAWING CONSTANTS                         #
 ################################################################################
@@ -60,9 +59,6 @@ def classify_number():
 
 
 def format_number():
-    #print(test_sample)
-    #print(len(test_sample))
-    
     newTest = transform.resize(test_sample, output_shape=(28, 28))
     
     for x in newTest:
@@ -80,16 +76,12 @@ def format_number():
     for x in range(784):
         columnNames.append("pixel" + str(x))
 
-
     df = pd.DataFrame(temp)
     cols = [1,2]
     df = df.drop(df.columns[cols], axis=1)
     df = df.swapaxes("index", "columns")
     df.columns = columnNames
     return df
-    
-
-
 
 ################################################################################
 #                                 DRAW THE GUI                                 #
