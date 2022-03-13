@@ -56,7 +56,8 @@ def classify_number():
 
 def format_number():
     '''
-    Robby comment this
+    Takes test_sample data from user handwriting, and formats it 
+    into a 1X784 dataframe so RFC can use it
     '''
     newTest = transform.resize(test_sample, output_shape=(28, 28))
     
